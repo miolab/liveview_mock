@@ -1,0 +1,14 @@
+version: "3"
+services:
+  app:
+    build: ./app
+    volumes:
+      - ./app:/usr/src/app
+    ports:
+      - "4000:4000"
+    environment:
+      - MIX_ENV=dev
+      - SECRET_KEY_BASE="TooLongTextForExampleAAAAAAaaaazJky2YrhKU8WVfxyA4ePuWpdR0+WI2yGiNmHxThiehy3ztYXwRtZdaaaaaaaaaaaaaaaaaa"
+    stdin_open: true
+    tty: true
+    command: sh -c "mix phx.server --no-halt"
