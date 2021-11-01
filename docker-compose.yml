@@ -1,4 +1,9 @@
 version: "3"
+
+networks:
+  backend:
+    driver: bridge
+
 services:
   app:
     build: ./app
@@ -9,6 +14,23 @@ services:
     environment:
       - MIX_ENV=dev
       - SECRET_KEY_BASE="TooLongTextForExampleAAAAAAaaaazJky2YrhKU8WVfxyA4ePuWpdR0+WI2yGiNmHxThiehy3ztYXwRtZdaaaaaaaaaaaaaaaaaa"
+      - POSTGRES_USER="postgres"
+      - POSTGRES_PASSWORD="postgres"
+      - POSTGRES_DB="my_app_dev"
     stdin_open: true
     tty: true
     command: sh -c "mix phx.server --no-halt"
+    networks:
+      - backend
+
+  db:
+    build: ./db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD="postgres"
+    volumes:
+      - ./db/postgres/tmp/data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - backend
