@@ -16,6 +16,7 @@ services:
     stdin_open: true
     tty: true
     command: sh -c "mix phx.server --no-halt"
+    network_mode: "bridge"
     networks:
       - backend
 
