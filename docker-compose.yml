@@ -9,14 +9,10 @@ services:
     build: ./app
     volumes:
       - ./app:/usr/src/app
-    ports:
-      - "4000:4000"
     environment:
       - MIX_ENV=dev
-      - SECRET_KEY_BASE="TooLongTextForExampleAAAAAAaaaazJky2YrhKU8WVfxyA4ePuWpdR0+WI2yGiNmHxThiehy3ztYXwRtZdaaaaaaaaaaaaaaaaaa"
-      - POSTGRES_USER="postgres"
-      - POSTGRES_PASSWORD="postgres"
-      - POSTGRES_DB="my_app_dev"
+    ports:
+      - 4000:4000
     stdin_open: true
     tty: true
     command: sh -c "mix phx.server --no-halt"
@@ -25,10 +21,12 @@ services:
 
   db:
     build: ./db
-    ports:
-      - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD="postgres"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=my_app_dev
+    ports:
+      - 5432:5432
     volumes:
       - ./db/postgres/tmp/data:/var/lib/postgresql/data
     restart: always
