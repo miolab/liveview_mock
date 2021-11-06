@@ -5,12 +5,9 @@ defmodule MyAppWeb.PageController do
     render(
       conn,
       "index.html",
-      hello_text: display_message()
+      hello_text: display_message(1111)
     )
   end
 
-  defp display_message() do
-    # "Hello Typespecs!"
-    1111
-  end
+  def display_message(param), do: param
 end
